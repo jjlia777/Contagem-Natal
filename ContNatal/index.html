@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown to Christmas</title>
+  <title>Contagem Regressiva para o NATAL</title>
 
   <style>
     body {
@@ -28,7 +28,7 @@
       width: fit-content;
       margin-top: 250px;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.259);
+      background-color: rgba(255, 255, 255, 0.195);
     }
     span {
       font-weight: 780;
@@ -55,26 +55,25 @@
       // definindo dia do natal
       const dataNatal = new Date('December 25, 2023 00:00:00').getTime();
 
-      // Get the current date and time
+      // hora atual
       const agora = new Date().getTime();
 
-      // Calculate the difference in milliseconds
+      // diferença
       const diferenca = dataNatal - agora;
 
-      // Calculate days, hours, minutes, and seconds
+      // dias, horas, minutos e segundos
       const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
       const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
       const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-      // Display the countdown
+      // display
       document.getElementById('regressiva').innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
 
-      // Update every second
+      // atualiza
       setTimeout(atualizarRegressiva, 1000);
     }
-
-    // Initial call to start the countdown
+    
     atualizarRegressiva();
   </script>
 </body>
