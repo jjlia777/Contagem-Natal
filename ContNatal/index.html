@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown to Christmas</title>
+
+  <style>
+    body {
+      background-image: url(freestocks--Qf9JKLysUg-unsplash.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: 'Arial', sans-serif;
+      margin: 50px;
+    }
+    #regressiva {
+      color: rgb(253, 0, 0);
+      font-weight: 600;
+      font-size: 55px;
+      margin-bottom: 20px;
+      text-shadow: 4px 4px 7px rgba(255, 255, 255, 0.674);
+    }
+    .tudo {
+      
+      border-radius: 25px;
+      padding: 30px;
+      width: fit-content;
+      margin-top: 250px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.259);
+    }
+    span {
+      font-weight: 780;
+      text-shadow: 4px 4px 7px rgba(208, 206, 206, 0.51);
+      color: rgb(186, 14, 14);
+      font-size: 40px;
+    }
+    h1 {
+      font-size: 35px;
+    }
+
+  </style>
+  
+</head>
+<body>
+  <div class="tudo">
+    <h1>Contagem Regressiva para o <span>NATAL</span>🎄</h1>
+    <div id="regressiva"></div>
+  </div>
+  
+
+  <script>
+    function atualizarRegressiva() {
+      // definindo dia do natal
+      const dataNatal = new Date('December 25, 2023 00:00:00').getTime();
+
+      // Get the current date and time
+      const agora = new Date().getTime();
+
+      // Calculate the difference in milliseconds
+      const diferenca = dataNatal - agora;
+
+      // Calculate days, hours, minutes, and seconds
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+      // Display the countdown
+      document.getElementById('regressiva').innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+
+      // Update every second
+      setTimeout(atualizarRegressiva, 1000);
+    }
+
+    // Initial call to start the countdown
+    atualizarRegressiva();
+  </script>
+</body>
+</html>
