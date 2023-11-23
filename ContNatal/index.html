@@ -28,7 +28,7 @@
       width: fit-content;
       margin-top: 250px;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.195);
+      background-color: rgba(228, 228, 228, 0.751);
     }
     span {
       font-weight: 780;
@@ -39,6 +39,17 @@
     h1 {
       font-size: 35px;
     }
+    #progress-bar {
+      margin-top: 20px;
+      width: 100%;
+      height: 20px;
+      background-color: #eee;
+      position: relative;
+    }
+    #progress {
+      height: 100%;
+      background-color: #4CAF50;
+    }
 
   </style>
   
@@ -47,34 +58,64 @@
   <div class="tudo">
     <h1>Contagem Regressiva para o <span>NATAL</span>🎄</h1>
     <div id="regressiva"></div>
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
   </div>
   
 
   <script>
-    function atualizarRegressiva() {
-      // definindo dia do natal
-      const dataNatal = new Date('December 25, 2023 00:00:00').getTime();
+    // Função para calcular a diferença entre as datas
+    function getTimeRemaining(endtime) {
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+            
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+        }
 
-      // hora atual
-      const agora = new Date().getTime();
+        // Função para exibir a contagem regressiva
+        function initializeClock(endtime) {
+            const regressiva = document.getElementById('regressiva');
+            const progressBar = document.getElementById('progress');
+            const progressBarContainer = document.getElementById('progress-bar');
 
-      // diferença
-      const diferenca = dataNatal - agora;
+            function updateClock() {
+                const t = getTimeRemaining(endtime);
 
-      // dias, horas, minutos e segundos
-      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-      const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+                regressiva.innerHTML = `${t.days}d ${t.hours}h ${t.minutes}m ${t.seconds}s`;
 
-      // display
-      document.getElementById('regressiva').innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+                const totalTime = Date.parse(endtime) - Date.parse(dataDeInicioDoProgresso);
+                const elapsedTime = totalTime - t.total;
+                const percentage = (elapsedTime / totalTime) * 100;
 
-      // atualiza
-      setTimeout(atualizarRegressiva, 1000);
-    }
-    
-    atualizarRegressiva();
+                progressBar.style.width = `${percentage}%`;
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    progressBar.style.width = '100%';
+                }
+            }
+
+            updateClock(); // Chama a função uma vez para evitar atrasos na exibição
+
+            const timeinterval = setInterval(updateClock, 1000);
+        }
+
+        const dataDeInicioDoProgresso = new Date("Oct 1, " + new Date().getFullYear() + " 00:00:00 GMT");
+        // Define a data de término para o Natal deste ano
+        const deadline = new Date("December 25, " + new Date().getFullYear() + " 00:00:00 GMT");
+
+        // Inicia a contagem regressiva
+        initializeClock(deadline);
   </script>
 </body>
 </html>
